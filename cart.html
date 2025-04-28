@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ตะกร้าสินค้า</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ตะกร้าสินค้า</h1>
+        <nav>
+            <a href="index.html">หน้าสินค้า</a>
+            <a href="cart.html">ตะกร้าสินค้า</a>
+            <a href="login.html">เข้าสู่ระบบ</a>
+        </nav>
+    </header>
+
+    <main id="cart-list"></main>
+
+    <button onclick="checkout()">ชำระเงิน</button>
+
+    <script src="products.js"></script>
+    <script src="cart.js"></script>
+    <script>
+    const cartList = document.getElementById('cart-list');
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.forEach(item => {
+        const div = document.createElement('div');
+        div.innerHTML = `<p>${item.name} - ${item.price} บาท</p>`;
+        cartList.appendChild(div);
+    });
+
+    function checkout() {
+        window.location.href = "checkout.html";
+    }
+    </script>
+</body>
+</html>

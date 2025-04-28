@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>เข้าสู่ระบบ / สมัครสมาชิก</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>เข้าสู่ระบบ / สมัครสมาชิก</h1>
+    </header>
+
+    <main style="text-align:center; margin-top:50px;">
+        <form id="login-form" onsubmit="login(event)">
+            <input type="text" id="username" placeholder="ชื่อผู้ใช้" required><br><br>
+            <input type="password" id="password" placeholder="รหัสผ่าน" required><br><br>
+            <button type="submit">เข้าสู่ระบบ</button>
+        </form>
+        <hr>
+        <h3>หรือ</h3>
+        <form id="signup-form" onsubmit="signup(event)">
+            <input type="text" id="signup-username" placeholder="ชื่อผู้ใช้ใหม่" required><br><br>
+            <input type="password" id="signup-password" placeholder="รหัสผ่าน" required><br><br>
+            <button type="submit">สมัครสมาชิก</button>
+        </form>
+    </main>
+
+    <script>
+    function signup(event) {
+        event.preventDefault();
+        const username = document.getElementById('signup-username').value;
+        const password = document.getElementById('signup-password').value;
+
+        // บันทึกข้อมูลผู้ใช้ใหม่ใน localStorage
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        users.push({ username, password });
+        localStorage.setItem('users', JSON.stringify(users));
+
+        alert('สมัครสมาชิกเรียบร้อยแล้ว! สามารถเข้าสู่ระบบได้ทันที');
+        document.getElementById('signup-form').reset();
+    }
+
+    function login(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.username === username && u.password === password);
+        
+        if (user) {
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            window.location.href = "index.html";
+        } else {
+            alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+        }
+    }
+    </script>
+
+<div id="credit-display" style="margin: 20px; font-size: 20px; color: green;"></div>
+<script src="credit.js"></script>
+</body>
+
+</html>

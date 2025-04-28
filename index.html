@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ร้านค้าไอเท็มเกม</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ร้านค้าไอเท็มเกม</h1>
+        <nav>
+            <a href="index.html">หน้าสินค้า</a>
+            <a href="cart.html">ตะกร้าสินค้า</a>
+            <a href="login.html" id="login-link">เข้าสู่ระบบ</a>
+            <a href="javascript:void(0);" id="logout-link" style="display:none;" onclick="logout()">ออกจากระบบ</a>
+        </nav>
+    </header>
+
+    <main id="product-list"></main>
+
+    <script src="products.js"></script>
+    <script src="cart.js"></script>
+    <script>
+    // เช็คว่ามีผู้ล็อกอินอยู่หรือไม่
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (loggedInUser) {
+        document.getElementById('login-link').style.display = 'none';
+        document.getElementById('logout-link').style.display = 'inline-block';
+    } else {
+        document.getElementById('login-link').style.display = 'inline-block';
+        document.getElementById('logout-link').style.display = 'none';
+    }
+
+    function logout() {
+        localStorage.removeItem('loggedInUser');
+        alert('ออกจากระบบเรียบร้อยแล้ว');
+        window.location.href = "index.html";
+    }
+    </script>
+</body>
+</html>
